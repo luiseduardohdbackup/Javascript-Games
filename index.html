@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+</head>
+<body style="width:100%; height:100%;">
+
+<!--canvas id="myCanvas" style="width:100%; height:100%;" style="border:5px solid #d3d3d3;"-->
+<canvas id="myCanvas" width="900" height="1800" style="border:5px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+//ctx.fillStyle = 'blue';// "blue";//  "#0000FF"; //rgb(0,0,255);// 'blue';
+//ctx.rect(0, 0, 100, 100);
+//ctx.stroke();
+function sleep_ms(millisecs) {
+    var initiation = new Date().getTime();
+    while ((new Date().getTime() - initiation) < millisecs);
+}
+ 
+// Seconds
+function sleep_s(secs) {
+  secs = (+new Date) + secs * 1000;
+  while ((+new Date) < secs);
+}
+function random(start, end)
+{
+	return Math.floor((Math.random() * end) + start);
+}
+
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+var i;
+var j;
+/*
+for( i = 0 ; i < 200 ; i++)
+{
+	for( j = 0 ; j < 200 ; j++)
+	{
+
+		ctx.fillStyle =  "rgb("+random(0,255)+", "+random(0,255)+", "+random(0,255)+")"; // "#0000FF";
+		ctx.fillRect(100 * i , 100 * j, 100, 100);
+		//ctx.stroke();
+		//sleep_s(1);
+	}	
+}
+*/
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+var x= 0;
+var y= 0;
+var direction = "right";
+
+document.onkeydown = checkKey;
+
+function checkKey(e) {
+
+    e = e || window.event;
+
+    if (e.keyCode == '38') {
+        // up arrow
+        console.log("up arrow");
+        y++;
+        direction = "up";
+    }
+    else if (e.keyCode == '40') {
+        // down arrow
+        console.log("down arrow");
+        y--;
+        direction = "down";
+    }
+    else if (e.keyCode == '37') {
+       // left arrow
+        console.log("left arrow");
+        x++;
+        direction = "left";
+    }
+    else if (e.keyCode == '39') {
+       // right arrow
+        console.log("right arrow");
+        x--;
+        direction = "right";
+    }
+
+}
+//Im going to start with 10*20
+var contextmiddlex = 250;
+var contextmiddley = 500;
+function rectangle( x, y )
+{
+	ctx.fillStyle =  "rgb("+random(0,255)+", "+random(0,255)+", "+random(0,255)+")"; // "#0000FF";
+	ctx.fillRect(100 * - x , 100 * - y, 100, 100);
+}
+// repeat with the interval of 2 seconds
+let timerId = setInterval(() => {
+
+
+    if ( direction == "up" ) {
+        // up arrow
+        y++;
+    }
+    else if ( direction == "down" ) {
+        // down arrow
+        y--;
+    }
+    else if ( direction == "left" ) {
+       // left arrow
+        x++;
+    }
+    else if (direction == "right") {
+       // right arrow
+        x--;
+    }
+}, 500);
+
+async function draw() {
+	console.log('Taking a break...');
+	while(true)
+	{
+		//ctx.fillStyle =  "rgb("+random(0,255)+", "+random(0,255)+", "+random(0,255)+")"; // "#0000FF";
+		//ctx.fillRect(100 * x , 100 * y, 100, 100);
+		rectangle( x, y );
+		await sleep(100);
+	}
+	console.log('Two seconds later');
+}
+draw();
+/*
+async function demo() {
+	console.log('Taking a break...');
+	for( i = 0 ; i < 20 ; i++)
+	{
+		for( j = 0 ; j < 20 ; j++)
+		{
+
+			ctx.fillStyle =  "rgb("+random(0,255)+", "+random(0,255)+", "+random(0,255)+")"; // "#0000FF";
+			ctx.fillRect(100 * i , 100 * j, 100, 100);
+			await sleep(100);
+			//ctx.stroke();
+			//sleep_s(1);
+		}	
+	}
+	console.log('Two seconds later');
+}
+demo();*/
+/*
+$("body").onkeydown(function(e){
+        alert(e.which);
+    });*/
+</script> 
+</body>
+</html>
+
